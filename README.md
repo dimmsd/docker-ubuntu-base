@@ -20,7 +20,7 @@ build-ds			Build a Dockerfile with docker-squash (need instelled docker-sqush)
 run				Run image and start interactive bash session
 ```
 
-How install `docker-squash` - see [github project page](https://github.com/goldmann/docker-squash)
+How install `docker-squash` see [github project page](https://github.com/goldmann/docker-squash)
 
 ### Example
 
