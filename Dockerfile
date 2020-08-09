@@ -2,11 +2,14 @@ ARG UBUNTU_VERSION
 FROM ubuntu:$UBUNTU_VERSION
 MAINTAINER Dimm <tirri@yandex.ru>
 ARG DEBIAN_FRONTEND=noninteractive
+ARG UBUNTU_VERSION
+ENV UBUNTU_VERSION=$UBUNTU_VERSION
+ENV TEST=0
 
-RUN apt-key update \
-    && apt-get -y update \
-    && apt-get -y install --no-install-recommends libapt-inst2.0 apt-utils locales \
-    && locale-gen en_US.UTF-8
+COPY ./utils/* /usr/local/bin/
+RUN  /usr/local/bin/apt-step-1.sh
+
+RUN locale-gen en_US.UTF-8
 
 ENV LANG en US.UTF-8
 ENV LANGUAGE=en_US:en
@@ -19,7 +22,7 @@ RUN apt-get install -y --no-install-recommends \
 # for use add-apt-repository
     software-properties-common \
     && add-apt-repository -y ppa:ondrej/php \
-    && apt-key update \
+    && /usr/local/bin/apt-step-2.sh \
     && apt-get -y update \
     && apt-get install -y --no-install-recommends tzdata \
 # reduce image size
@@ -29,6 +32,8 @@ RUN apt-get install -y --no-install-recommends \
     && apt-get clean \
     && apt-get autoclean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+
 
 # overwrite this with 'CMD []' in a dependent Dockerfile
 CMD ["/bin/bash"]
