@@ -12,6 +12,7 @@ env:
   - UBUNTU_VERSION=16.04
   - UBUNTU_VERSION=18.04
   - UBUNTU_VERSION=20.04
+  - UBUNTU_VERSION=21.04
 before_install:
 - sudo apt update -y
 - sudo apt install --only-upgrade docker-ce -y
